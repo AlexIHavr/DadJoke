@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js forest"
+    "test1": "node index.js --searchTearm cat",
+    "test2": "node index.js --searchTearm forest",
+    "test3": "node index.js --searchTearm sdsdsd",
+    "test4": "node index.js --leaderboard"
   },
   "keywords": [],
   "author": "",
