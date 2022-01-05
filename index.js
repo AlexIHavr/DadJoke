@@ -20,10 +20,8 @@ class DadJokeAPI {
 
   setAllJokes() {
     try {
-      fs.accessSync('jokes.json');
       this.allJokes = JSON.parse(fs.readFileSync('./jokes.json'));
     } catch (e) {
-      fs.writeFileSync('./jokes.json', JSON.stringify([]));
       this.allJokes = [];
     }
   }
