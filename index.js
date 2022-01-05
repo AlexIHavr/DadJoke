@@ -7,7 +7,7 @@ const leaderboard = process.argv[2] === '--leaderboard';
 class DadJokeAPI {
   constructor(options) {
     this.options = options;
-    this.allJokes = JSON.parse(fs.readFileSync('./jokes.json'));
+    this.setAllJokes();
   }
 
   async getDadJoke() {
@@ -18,9 +18,19 @@ class DadJokeAPI {
     return await this.getSearchTermJoke(this.options);
   }
 
+  setAllJokes() {
+    try {
+      fs.accessSync('jokes.json');
+      this.allJokes = JSON.parse(fs.readFileSync('./jokes.json'));
+    } catch (e) {
+      fs.writeFileSync('./jokes.json', JSON.stringify([]));
+      this.allJokes = [];
+    }
+  }
+
   getLeaderboardJoke() {
     if (!this.allJokes.length) return 'jokes.json has no jokes.';
-    return this.allJokes.sort((a, b) => a.count - b.count).slice(-1)[0].joke;
+    return this.allJokes.sort((a, b) => b.count - a.count)[0].joke;
   }
 
   async getSearchTermJoke(options) {
