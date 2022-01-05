@@ -1,9 +1,6 @@
 import https from 'https';
 import fs from 'fs';
 
-const leaderboard = process.argv[2] === '--leaderboard';
-const searchTerm = process.argv[2] === '--searchTerm' ? process.argv[3] : undefined;
-
 let allJokes;
 try {
   allJokes = JSON.parse(fs.readFileSync('./jokes.json'));
@@ -11,11 +8,12 @@ try {
   allJokes = [];
 }
 
-if (leaderboard) {
+if (process.argv[2] === '--leaderboard') {
   console.log(getLeaderboardJoke());
   process.exit();
 }
 
+const searchTerm = process.argv[2] === '--searchTerm' ? process.argv[3] : undefined;
 if (searchTerm === undefined) {
   throw new Error('Enter, please, searchTerm argument.');
 }
