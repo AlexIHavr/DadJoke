@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test1": "node index.js --searchTearm cat",
-    "test2": "node index.js --searchTearm forest",
-    "test3": "node index.js --searchTearm sdsdsd",
-    "test4": "node index.js --leaderboard"
+    "test1": "node index.js --searchTerm cat",
+    "test2": "node index.js --searchTerm forest",
+    "test3": "node index.js --searchTerm sdsdsd",
+    "test4": "node index.js --leaderboard",
+    "test5": "node index.js --searchTerm",
+    "test6": "node index.js"
   },
   "keywords": [],
   "author": "",

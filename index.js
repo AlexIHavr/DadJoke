@@ -1,21 +1,31 @@
 import https from 'https';
 import fs from 'fs';
 
-const searchTerm = process.argv[2] === '--searchTearm' ? process.argv[3] : null;
-const leaderboard = process.argv[2] === '--leaderboard';
-
 class DadJokeAPI {
   constructor(options) {
-    this.options = options;
+    this.leaderboard = process.argv[2] === '--leaderboard';
+    this.setOptions(options);
     this.setAllJokes();
   }
 
   async getDadJoke() {
-    if (leaderboard) {
+    if (this.leaderboard) {
       return this.getLeaderboardJoke();
     }
 
     return await this.getSearchTermJoke(this.options);
+  }
+
+  setOptions(options) {
+    if (this.leaderboard) return;
+
+    const searchTerm = process.argv[2] === '--searchTerm' ? process.argv[3] : undefined;
+
+    if (searchTerm === undefined) {
+      throw new Error('Enter, please, searchTerm argument.');
+    }
+
+    this.options = { ...options, path: `/search?term=${searchTerm}` };
   }
 
   setAllJokes() {
@@ -77,7 +87,7 @@ class DadJokeAPI {
 
 const dadJokeAPI = new DadJokeAPI({
   host: 'icanhazdadjoke.com',
-  path: `/search?term=${searchTerm}`,
+  path: `/search`,
   method: 'GET',
   headers: {
     Accept: 'application/json',
