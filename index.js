@@ -2,9 +2,9 @@ import https from 'https';
 import fs from 'fs';
 
 class DadJokeAPI {
-  constructor(options) {
+  constructor() {
     this.leaderboard = process.argv[2] === '--leaderboard';
-    this.setOptions(options);
+    this.setOptions();
     this.setAllJokes();
   }
 
@@ -16,7 +16,7 @@ class DadJokeAPI {
     return await this.getSearchTermJoke(this.options);
   }
 
-  setOptions(options) {
+  setOptions() {
     if (this.leaderboard) return;
 
     const searchTerm = process.argv[2] === '--searchTerm' ? process.argv[3] : undefined;
@@ -25,7 +25,14 @@ class DadJokeAPI {
       throw new Error('Enter, please, searchTerm argument.');
     }
 
-    this.options = { ...options, path: `/search?term=${searchTerm}` };
+    this.options = {
+      host: 'icanhazdadjoke.com',
+      path: `/search?term=${searchTerm}`,
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+    };
   }
 
   setAllJokes() {
@@ -85,14 +92,7 @@ class DadJokeAPI {
   }
 }
 
-const dadJokeAPI = new DadJokeAPI({
-  host: 'icanhazdadjoke.com',
-  path: `/search`,
-  method: 'GET',
-  headers: {
-    Accept: 'application/json',
-  },
-});
+const dadJokeAPI = new DadJokeAPI();
 
 (async function () {
   console.log(await dadJokeAPI.getDadJoke());
