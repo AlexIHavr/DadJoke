@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js hipster"
+    "start": "node index.js forest"
   },
   "keywords": [],
   "author": "",

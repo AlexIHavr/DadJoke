@@ -9,7 +9,6 @@ const options = {
   path: `/search?term=${searchTerm}`,
   method: 'GET',
   headers: {
-    'Content-Type': 'application/json',
     Accept: 'application/json',
   },
 };
